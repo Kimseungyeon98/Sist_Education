@@ -6,9 +6,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class SpringMain {
 	public static void main(String[] args) {
 		//스프링 컨테이너를 생성
-		AbstractApplicationContext context =
-				new ClassPathXmlApplicationContext(
-						        "applicationContext3.xml");
+		AbstractApplicationContext context = new ClassPathXmlApplicationContext("applicationContext3.xml");
 		/*
 		 * 빈 객체의 타입이나 이름을 이용하여 의존관계를 자동으로 설정할 수 있는 기능
 		 * bean 태그의 autowire 속성에 지정할 수 있는 값
@@ -19,9 +17,7 @@ public class SpringMain {
 		 */
 		
 		//DI - 프로퍼티 이름을 이용한 의존관계 자동 설정
-		WriteArticleService service = 
-				(WriteArticleService)context.getBean(
-						             "writeArticleService");
+		WriteArticleService service = (WriteArticleService)context.getBean("writeArticleService");
 		service.write();
 		
 		context.close();		
