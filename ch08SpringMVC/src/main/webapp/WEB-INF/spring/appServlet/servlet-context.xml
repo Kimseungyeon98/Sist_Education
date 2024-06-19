@@ -69,4 +69,6 @@
 	<!-- 파일 업로드 -->
 	<beans:bean class="kr.spring.ch08.controller.SubmitReportController"/>
 	
+	<beans:bean class="kr.spring.ch09.controller.MemberWriteController"/>
+	
 </beans:beans>

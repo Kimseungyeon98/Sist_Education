@@ -125,6 +125,11 @@
 			<artifactId>commons-fileupload</artifactId>
 			<version>1.3.2</version>
 		</dependency>
+		<dependency>
+		    <groupId>org.hibernate</groupId>
+		    <artifactId>hibernate-validator</artifactId>
+		    <version>7.0.1.Final</version>
+		</dependency>
 		<!-- 라이브러리 추가 끝 -->
 	
 		<!-- Test -->
@@ -155,7 +160,7 @@
                         <buildcommand>org.springframework.ide.eclipse.core.springbuilder</buildcommand>
                     </additionalBuildcommands>
                     <downloadSources>true</downloadSources>
-                    <downloadJavadocs>true</downloadJavadocs>
+                    <downloaddocs>true</downloaddocs>
                 </configuration>
             </plugin>
             <plugin>

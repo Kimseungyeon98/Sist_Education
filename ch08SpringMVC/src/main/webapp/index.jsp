@@ -43,16 +43,19 @@
 	
 	
 	#alert_box {
-	    display: none;
+	    display: block;
 	    position: fixed;
-	    top: 50%;
+	    top: 20%;
 	    right: 50%;
+    	transform: translateX(50%);
 	    padding: 15px;
 	    background-color: #AED581;
 	    color: white;
 	    border-radius: 5px;
 	    opacity: 1;
 	    transition: opacity 1s ease-out;
+	    height: 10%;
+	    z-index: 1000
 	}
 </style>
 </head>
@@ -70,27 +73,27 @@
 			</div>
 		</div>
 	</div>
-	
-	<ul class="list-unstyled px-5">
-		<li><a href="${pageContext.request.contextPath}/hello.do">HelloController</a></li>
-		<li><a href="${pageContext.request.contextPath}/search/internal.do?query=서울!">SearchController - internal.do</a></li>
-		<li><a href="${pageContext.request.contextPath}/search/external.do?query=제주&pageNumber=20">SearchController - external.do</a></li>
-		<li><a href="${pageContext.request.contextPath}/article/newArticle.do">newArticleController</a></li>
-		<li><a href="${pageContext.request.contextPath}/cookie/make.do">CookieController - make.do</a></li>
-		<li><a href="${pageContext.request.contextPath}/cookie/view.do">CookieController - view.do</a></li>
-		<li><a href="${pageContext.request.contextPath}/search/main.do">GameSearchController</a></li>
-		<li><a href="${pageContext.request.contextPath}/account/create.do">CreateAccountController</a></li>
-		<li><a href="${pageContext.request.contextPath}/login/login.do">LoginController</a></li>
-		<li><a href="${pageContext.request.contextPath}/report/submitReport.do">SubmitReportController</a></li>
-	</ul>
-	
+	<div class="container">
+		<ul class="list-unstyled px-5">
+			<li><a href="${pageContext.request.contextPath}/hello.do">HelloController</a></li>
+			<li><a href="${pageContext.request.contextPath}/search/internal.do?query=서울!">SearchController - internal.do</a></li>
+			<li><a href="${pageContext.request.contextPath}/search/external.do?query=제주&pageNumber=20">SearchController - external.do</a></li>
+			<li><a href="${pageContext.request.contextPath}/article/newArticle.do">newArticleController</a></li>
+			<li><a href="${pageContext.request.contextPath}/cookie/make.do">CookieController - make.do</a></li>
+			<li><a href="${pageContext.request.contextPath}/cookie/view.do">CookieController - view.do</a></li>
+			<li><a href="${pageContext.request.contextPath}/search/main.do">GameSearchController</a></li>
+			<li><a href="${pageContext.request.contextPath}/account/create.do">CreateAccountController</a></li>
+			<li><a href="${pageContext.request.contextPath}/login/login.do">LoginController</a></li>
+			<li><a href="${pageContext.request.contextPath}/report/submitReport.do">SubmitReportController</a></li>
+			<li><a href="${pageContext.request.contextPath}/member/write.do">MemberWriteController</a></li>
+		</ul>
+	</div>
 	<div id="alert_box" class="p-3 m-3 rounded-5 border text-center">
 		경고합니다!
 	</div>
-	<div>
+	<div class="text-center">
 		<button class="btn btn-lg btn-primary" onclick="alert_danger()">버튼</button>
 	</div>
-	
 	<script>
 		window.onload = function(){
 			/* 유튜브 로고 */
