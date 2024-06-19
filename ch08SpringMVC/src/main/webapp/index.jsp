@@ -43,7 +43,7 @@
 	
 	
 	#alert_box {
-	    display: block;
+	    display: none;
 	    position: fixed;
 	    top: 20%;
 	    right: 50%;
@@ -86,6 +86,8 @@
 			<li><a href="${pageContext.request.contextPath}/login/login.do">LoginController</a></li>
 			<li><a href="${pageContext.request.contextPath}/report/submitReport.do">SubmitReportController</a></li>
 			<li><a href="${pageContext.request.contextPath}/member/write.do">MemberWriteController</a></li>
+			<li><a href="${pageContext.request.contextPath}/file.do">DownloadController</a></li>
+			<li><a href="${pageContext.request.contextPath}/pageRanksExcel.do">PageRanksController</a></li>
 		</ul>
 	</div>
 	<div id="alert_box" class="p-3 m-3 rounded-5 border text-center">
