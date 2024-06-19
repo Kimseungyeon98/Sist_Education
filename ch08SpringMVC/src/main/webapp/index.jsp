@@ -87,7 +87,8 @@
 			<li><a href="${pageContext.request.contextPath}/report/submitReport.do">SubmitReportController</a></li>
 			<li><a href="${pageContext.request.contextPath}/member/write.do">MemberWriteController</a></li>
 			<li><a href="${pageContext.request.contextPath}/file.do">DownloadController</a></li>
-			<li><a href="${pageContext.request.contextPath}/pageRanksExcel.do">PageRanksController</a></li>
+			<li><a href="${pageContext.request.contextPath}/pageRanksExcel.do">PageRanksController - pageRanksExcel.do</a></li>
+			<li><a href="${pageContext.request.contextPath}/pageJson.do">PageRanksController - pageJson.do</a></li>
 		</ul>
 	</div>
 	<div id="alert_box" class="p-3 m-3 rounded-5 border text-center">
@@ -125,7 +126,7 @@
 		    // 3초 후에 알림창이 사라지도록 설정
 		    setTimeout(() => {
 		        fadeOut(alertBox);
-		    }, 3000);
+		    }, 1000);
 		};
 		function fadeOut(element) {
 		    let op = 1;  // 초기 불투명도
