@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>글 쓰기</title>
+<title>글 수정</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <style>
 	@font-face {
@@ -18,9 +18,10 @@
 </head>
 <body style="font-family: 'Freesentation-9Black'">
 	<div class="container my-5">
-		<h2 class="fw-bold">글 쓰기</h2>
+		<h2 class="fw-bold">글 수정</h2>
 		<hr>
-		<form:form action="insert.do" modelAttribute="boardVO" cssClass="form-control">
+		<form:form action="update.do" modelAttribute="boardVO" cssClass="form-control">
+			<form:hidden path="num"/>
 			<ul class="list-unstyled">
 				<li>
 					<form:label path="writer">작성자</form:label>
@@ -44,8 +45,8 @@
 				</li>
 			</ul>
 			<div class="text-center">
-				<form:button class="btn btn-lg btn-primary">등록</form:button>
-				<input type="button" value="목록" class="btn btn-lg btn-light" onclick="location.href='list.do'">
+				<form:button class="btn btn-primary">수정</form:button>
+				<input type="button" value="목록" class="btn btn-light" onclick="location.href='list.do'">
 			</div>
 		</form:form>
 	</div>
