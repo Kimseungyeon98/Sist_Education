@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -89,4 +90,65 @@ public class BoardController {
 		
 		return new ModelAndView("selectDetail","board", board);
 	}
+	//수정 폼 호출
+	@GetMapping("/update.do")
+	public String formUpdate(int num, Model model) {
+		model.addAttribute("boardVO", boardService.selectBoard(num));
+		
+		return "updateForm";
+	}
+	//전송된 데이터 처리
+	@PostMapping("/update.do")
+	public String update(@Valid BoardVO vo, BindingResult result) {
+		log.debug("<<BoardVO>> : " + vo);
+		
+		//유효성 체크 결과 오류가 있으면 폼 호출
+		if(result.hasErrors()) {
+			return "updateForm";
+		}
+		
+		//비밀번호 일치 여부 체크
+		//DB에 저장된 비밀번호 구하기
+		BoardVO db_board = boardService.selectBoard(vo.getNum());
+		//비밀번호 체크
+		if(!db_board.getPasswd().equals(vo.getPasswd())) {
+			result.rejectValue("passwd","invalidPassword");
+			return "updateForm";
+		}
+		
+		//글 수정
+		boardService.updateBoard(vo);
+		
+		return "redirect:/list.do";
+	}
+	//글 삭제 폼 호출
+	@GetMapping("/delete.do")
+	public String deleteForm(BoardVO vo) {
+		return "deleteForm";
+	}
+	//글 삭제 처리
+	@PostMapping("/delete.do")
+	public String submitDelete(@Valid BoardVO vo, BindingResult result) {
+		log.debug("<<BoardVO>> : " + vo);
+		
+		//유효성 체크 결과 오류가 있으면 폼 호출
+		//비밀번호 전송 여부만 체크
+		if(result.hasFieldErrors("passwd")) {
+			return form();
+		}
+		//비밀번호 일치 여부 체크
+		//DB에 저장된 비밀번호 구하기
+		BoardVO db_board = boardService.selectBoard(vo.getNum());
+		//비밀번호 체크
+		if(!db_board.getPasswd().equals(vo.getPasswd())) {
+			result.rejectValue("passwd","invalidPassword");
+			return "deleteForm";
+		}
+		
+		//글 삭제
+		boardService.deleteBoard(vo.getNum());
+
+		return "redirect:/list.do";
+	}
+	
 }

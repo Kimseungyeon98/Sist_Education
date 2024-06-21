@@ -39,13 +39,11 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public void updateBoard(BoardVO board) {
-	
-		
+		boardDAO.updateBoard(board);
 	}
 
 	@Override
 	public void deleteBoard(int num) {
-	
-		
+		boardDAO.deleteBoard(num);
 	}
 }
