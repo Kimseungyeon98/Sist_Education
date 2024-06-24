@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<!-- dao에 들어 있는 java파일과 이름이 같아야 한다. ex)BoardMapper.java , BoardMapper.xml -->
+<mapper namespace="kr.spring.board.dao.BoardMapper">
+	<!-- id는 메서드명으로 한다 -->
+	<select id="getBoardList" parameterType="map" resultType="boardVO">
+		<![CDATA[
+			SELECT *
+			FROM (SELECT rownum rnum, a.*
+				  FROM (SELECT *
+					   	FROM aboard
+				   		ORDER BY reg_date DESC)a)
+		    WHERE rnum >= #{start} and rnum <= #{end}
+		]]>
+	</select>
+	<!-- 글쓰기 -->
+	<select id="insertBoard" parameterType="boardVO">
+		INSERT INTO aboard(num, title, writer, passwd, content, reg_date)
+		VALUES (aboard_seq.nextval, #{title}, #{writer}, #{passwd}, #{content}, SYSDATE)
+	</select>
+</mapper>
