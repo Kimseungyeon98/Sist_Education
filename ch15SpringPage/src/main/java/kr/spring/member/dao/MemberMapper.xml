@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper   
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"   
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">  
+
+<!-- dao에 들어 있는 java파일과 이름이 같아야 한다. ex)MemberMapper.java , MemberMapper.xml -->
+<mapper namespace="kr.spring.member.dao.MemberMapper">
+	<!-- 회원가입 -->
+	<insert id="insertMember_detail" parameterType="memberVO">
+		INSERT INTO spmember_detail (
+			mem_num, name, passwd, phone, email, zipcode, address1, address2
+		) VALUES (#{mem_num}, #{name}, #{passwd}, #{phone},#{email}, #{zipcode}, #{address1}, #{address2})
+	</insert>
+</mapper>
