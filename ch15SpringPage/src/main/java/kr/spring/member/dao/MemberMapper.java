@@ -3,6 +3,7 @@ package kr.spring.member.dao;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import kr.spring.member.vo.MemberVO;
 
@@ -13,12 +14,14 @@ public interface MemberMapper {
 	public Long selectMem_num();
 	@Insert("INSERT INTO spmember (mem_num, id, nick_name) VALUES (#{mem_num},#{id},#{nick_name})")
 	public void insertMember(MemberVO member);
-	// xml
+	// XML
 	public void insertMember_detail(MemberVO member);
 	public MemberVO selectCheckMember(String id);
 	@Select("SELECT * FROM spmember JOIN spmember_detail USING (mem_num) WHERE mem_num = #{mem_num}")
 	public MemberVO selectMember(Long mem_num);
+	@Update("UPDATE spmember SET nick_name= #{nick_name} WHERE mem_num = #{mem_num}")
 	public void updateMember(MemberVO member);
+	// XML
 	public void updateMember_detail(MemberVO member);
 	public void updatePassword(MemberVO member);
 	public void deleteMember(Long mem_num);
