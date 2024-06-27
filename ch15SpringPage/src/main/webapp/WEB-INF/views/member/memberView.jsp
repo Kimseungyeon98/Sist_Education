@@ -9,9 +9,9 @@
 			이름 : ${member.name}
 		</li>
 		<c:if test="${!empty member.nick_name}">
-		<li>
-			별명 : ${member.nick_name}
-		</li>
+			<li>
+				별명 : ${member.nick_name}
+			</li>
 		</c:if>
 		<li>
 			전화번호 : ${member.phone}
@@ -29,9 +29,9 @@
 			가입일 : ${member.reg_date}
 		</li>
 		<c:if test="${!empty member.modify_date}">
-		<li>
-			정보 수정일 : ${member.modify_date}
-		</li>
+			<li>
+				정보 수정일 : ${member.modify_date}
+			</li>
 		</c:if>
 	</ul>
 </div>

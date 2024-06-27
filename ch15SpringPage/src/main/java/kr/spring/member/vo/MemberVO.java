@@ -49,6 +49,10 @@ public class MemberVO {
 	@Pattern(regexp="^[A-Za-z0-9]{4,12}$")
 	private String now_passwd;
 
+	//비밀번호 변경시에만 조건체크
+	@Pattern(regexp="^[A-Za-z0-9]$")
+	private String captcha_chars;
+	
 	//비밀번호 일치 여부 체크
 	public boolean ischeckedPassword(String userPasswd) {
 		if(auth>1 && passwd.equals(userPasswd)) {
@@ -56,6 +60,7 @@ public class MemberVO {
 		}
 		return false;
 	}
+	
 	//이미지 BLOB 처리
 	//(주의)폼에서 파일업로드 파라미터네임은 반드시 upload로 지정해야 함
 	public void setUpload(MultipartFile upload) throws IOException{

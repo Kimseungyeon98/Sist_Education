@@ -19,7 +19,7 @@
 	</select>
 	<!-- 회원 정보 수정 -->
 	<update id="updateMember_detail" parameterType="memberVO">
-		UPDATE spmember
+		UPDATE spmember_detail
 		SET
 			name = #{name}, 
 			phone = #{phone}, 
@@ -27,7 +27,7 @@
 			zipcode = #{zipcode}, 
 			address1 = #{address1}, 
 			address2 = #{address2}, 
-			modfiy_date = SYSDATE
+			modify_date = SYSDATE
 		WHERE mem_num = #{mem_num}
 	</update>
 </mapper>

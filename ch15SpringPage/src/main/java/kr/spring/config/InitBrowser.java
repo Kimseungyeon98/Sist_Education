@@ -8,7 +8,7 @@ import javax.annotation.PostConstruct;
 import org.springframework.stereotype.Component;
 
 //서버 실행시 웹 자동 부팅
-@Component
+/*@Component*/
 public class InitBrowser{
 	@PostConstruct
 	public void init() {
