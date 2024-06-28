@@ -17,6 +17,7 @@ public interface MemberMapper {
 	public void insertMember(MemberVO member);
 	// XML
 	public void insertMember_detail(MemberVO member);
+	// XML
 	public MemberVO selectCheckMember(String id);
 	@Select("SELECT * FROM spmember JOIN spmember_detail USING (mem_num) WHERE mem_num=#{mem_num}")
 	public MemberVO selectMember(Long mem_num);
@@ -24,6 +25,7 @@ public interface MemberMapper {
 	public void updateMember(MemberVO member);
 	// XML
 	public void updateMember_detail(MemberVO member);
+	@Update("UPDATE spmember_detail SET passwd=#{passwd} WHERE mem_num=#{mem_num}")
 	public void updatePassword(MemberVO member);
 	@Delete("DELETE FROM spmemebr WHERE mem_num=#{mem_num}")
 	public void deleteMember(Long mem_num);

@@ -11,7 +11,6 @@ public interface MemberService {
 	public void updatePassword(MemberVO member);
 	public void deleteMember(Long mem_num);
 	
-	
 	//자동로그인
 	public void updateAu_id(String au_id, Long mem_num);
 	public void selectAu_id(String au_id);

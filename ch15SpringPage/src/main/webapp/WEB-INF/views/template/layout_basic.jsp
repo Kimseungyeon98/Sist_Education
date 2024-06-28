@@ -10,16 +10,16 @@
 <tiles:insertAttribute name="css" ignore="true"/>
 </head>
 <body>
-<div id="main">
-	<div id="main_header">
-		<tiles:insertAttribute name="header"/>
+	<div id="main">
+		<div id="main_header">
+			<tiles:insertAttribute name="header"/>
+		</div>
+		<div id="main_body">
+			<tiles:insertAttribute name="body"/>
+		</div>
+		<div id="main_footer">
+			<tiles:insertAttribute name="footer"/>
+		</div>
 	</div>
-	<div id="main_body">
-		<tiles:insertAttribute name="body"/>
-	</div>
-	<div id="main_footer">
-		<tiles:insertAttribute name="footer"/>
-	</div>
-</div>
 </body>
 </html>

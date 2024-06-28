@@ -1,4 +1,5 @@
 @charset "UTF-8";
+
 /* 회원가입 등록, 수정, 삭제 폼
 ---------------------*/
 #member_register{
@@ -10,13 +11,15 @@
 #member_register input[id="id"]{
 	width:236px;
 }
-#member_register input[id="zipcode"], #member_modify input[id="zipcode"]{
+#member_register input[id="zipcode"],
+                         #member_modify input[id="zipcode"]{
 	width:220px;
 }
-#member_modfiy{
+#member_modify{
 	width:96%;
 }
-#member_delete input[id="id"], #member_delete input[id="passwd"]{
+#member_delete input[id="id"],
+                         #member_delete input[id="passwd"]{
 	width:240px;
 }
 
@@ -54,6 +57,7 @@
 	padding-top:1.125rem;
 	padding-bottom:0.125rem;      
 }
+
 .floating-label > .form-input:focus + label, 
  .floating-label > .form-input:not(:placeholder-shown) + label{
 	opacity:0.65;
@@ -66,7 +70,6 @@
 	width:200px;
 	padding:0 0 5px 0;
 }
-
 /* MY페이지
 ---------------------*/
 .camera{
@@ -81,3 +84,16 @@
 	cursor:pointer;
 	padding:13px 0 0 10px;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

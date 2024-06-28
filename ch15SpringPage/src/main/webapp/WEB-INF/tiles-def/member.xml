@@ -11,7 +11,6 @@
 		<put-attribute name="css" value="/WEB-INF/views/member/memberCSS.jsp"/>
 		<put-attribute name="body" value="/WEB-INF/views/member/memberRegister.jsp"/>
 	</definition>
-	
 	<definition name="memberLogin" extends="main">
 		<put-attribute name="title" value="회원로그인"/>
 		<put-attribute name="css" value="/WEB-INF/views/member/memberCSS.jsp"/>
@@ -28,11 +27,13 @@
 		<put-attribute name="footer" value="/WEB-INF/views/template/footer.jsp"/>
 	</definition>
 	
+	<!-- 회원정보 수정 -->
 	<definition name="memberModify" extends="myPage">
 		<put-attribute name="title" value="회원정보 수정"/>
 		<put-attribute name="body" value="/WEB-INF/views/member/memberModify.jsp"/>
 	</definition>
 	
+	<!-- 비밀번호 변경 -->
 	<definition name="memberChangePassword" extends="myPage">
 		<put-attribute name="title" value="비밀번호 변경"/>
 		<put-attribute name="body" value="/WEB-INF/views/member/memberChangePassword.jsp"/>
