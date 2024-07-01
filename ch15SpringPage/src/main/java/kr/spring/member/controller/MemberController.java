@@ -214,6 +214,18 @@ public class MemberController {
 		return "imageView";
 	}
 	
+	//프로필 사진 출력(회원번호 지정)
+	@GetMapping("/member/viewProfile")
+	public String getProfileByMem_num(Long mem_num, HttpServletRequest request, Model model) {
+		
+		MemberVO memberVO =memberService.selectMember(mem_num);
+		
+		viewProfile(memberVO,request,model);
+		
+		return "imageView";
+	}
+	
+	
 	//프로필 사진 처리를 위한 공통 코드
 	public void viewProfile(MemberVO memberVO, HttpServletRequest request, Model model) {
 		if(memberVO==null || memberVO.getPhoto_name()==null) {
