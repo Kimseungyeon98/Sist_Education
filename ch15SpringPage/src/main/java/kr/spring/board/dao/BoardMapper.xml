@@ -118,12 +118,50 @@
 		WHERE board_num = #{board_num}
 	</update>
 	
-	
-	
+	<!-- 게시판 글 삭제 -->
+	<delete id="deleteBoard" parameterType="long">
+		DELETE FROM spboard
+				WHERE board_num=#{board_num}
+	</delete>
 	
 	<!-- 파일 삭제 -->
 	<update id="deleteFile" parameterType="long">
 		UPDATE spboard SET filename = '' 
 		WHERE board_num = #{board_num}
 	</update>
+	
+	
+	
+	
+	<!-- 좋아요 조회 -->
+	<select id="selectFav" parameterType="boardFavVO">
+		SELECT * 
+		FROM spboard_fav 
+		WHERE board_num = #{board_num} and mem_num = #{mem_num}
+	</select>
+	
+	<!-- 좋아요 갯수 -->
+	<select id="selectFavCount" parameterType="long">
+		SELECT count(*) 
+		FROM spboard_fav 
+		WHERE board_num = #{board_num}
+	</select>
+	
+	<!-- 좋아요 추가 -->
+	<insert id="insertFav" parameterType="boardFavVO">
+		INSERT INTO spboard_fav(board_num, mem_num)
+						VALUES (#{board_num}, #{mem_num})
+	</insert>
+	
+	<!-- 좋아요 삭제 -->
+	<delete id="deleteFav" parameterType="boardFavVO">
+		DELETE FROM spboard_fav
+				WHERE mem_num = #{mem_num} AND board_num = #{board_num}
+	</delete>
+	
+	<!-- 부모 글 삭제시 모든 좋아요 삭제 -->
+	<delete id="deleteFavByBoardNum" parameterType="long">
+		DELETE FROM spboard_fav
+				WHERE board_num = #{board_num}
+	</delete>
 </mapper>

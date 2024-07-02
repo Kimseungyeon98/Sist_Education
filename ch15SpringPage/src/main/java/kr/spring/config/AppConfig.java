@@ -9,16 +9,24 @@ import org.springframework.web.servlet.view.tiles3.TilesView;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 import kr.spring.interceptor.LoginCheckInterceptor;
+import kr.spring.interceptor.WriterCheckInterceptor;
 
 //자바코드 기반 설정 클래스
 @Configuration
 public class AppConfig implements WebMvcConfigurer{
 	private LoginCheckInterceptor loginCheck;
+	private WriterCheckInterceptor writerChecker;
 	
 	@Bean
 	public LoginCheckInterceptor interceptor2() {
 		loginCheck = new LoginCheckInterceptor();
 		return loginCheck;
+	}
+	
+	@Bean
+	public WriterCheckInterceptor interceptor4() {
+		writerChecker = new WriterCheckInterceptor();
+		return writerChecker;
 	}
 	
 	@Override
@@ -29,6 +37,10 @@ public class AppConfig implements WebMvcConfigurer{
 				.addPathPatterns("/member/update")
 				.addPathPatterns("/member/changePassword")
 				.addPathPatterns("/board/write")
+				.addPathPatterns("/board/update")
+				.addPathPatterns("/board/delete");
+		//WriterCheckInterceptor 설정
+		registry.addInterceptor(writerChecker)
 				.addPathPatterns("/board/update")
 				.addPathPatterns("/board/delete");
 	}

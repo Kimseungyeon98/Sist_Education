@@ -8,10 +8,12 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.spring.board.service.BoardService;
+import kr.spring.board.vo.BoardFavVO;
 import kr.spring.board.vo.BoardVO;
 import kr.spring.member.vo.MemberVO;
 import kr.spring.util.FileUtil;
@@ -50,6 +52,70 @@ public class BoardAjaxController {
 				
 				mapJson.put("result", "success");
 			}
+		}
+		return mapJson;
+	}
+
+	
+	/*=================
+		부모글 좋아요
+	==================*/
+	//부모글 좋아요 읽기
+	@GetMapping("/board/getFav")
+	@ResponseBody
+	public Map<String,Object> getFav(BoardFavVO fav, HttpSession session){
+		log.debug("<<게시판 좋아요 - BoardFavVO : " + fav);
+		
+		Map<String,Object> mapJson = new HashMap<>();
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		if(user==null) {
+			mapJson.put("status","noFav");
+		} else {
+			//로그인된 회원번호  셋팅
+			fav.setMem_num(user.getMem_num());
+			BoardFavVO boardFav = boardService.selectFav(fav);
+			
+			if(boardFav!=null) {
+				mapJson.put("status", "yesFav");
+			} else {
+				mapJson.put("status", "noFav");
+			}
+		}
+		
+		mapJson.put("count", boardService.selectFavCount(fav.getBoard_num()));
+		
+		return mapJson;
+	}
+	//부모글 좋아요 등록/삭제
+	@PostMapping("/board/writeFav")
+	@ResponseBody
+	public Map<String,Object> wrtieFav(BoardFavVO fav, HttpSession session){
+		log.debug("<<게시판 좋아요 - 등록>> : " + fav);
+		
+		Map<String,Object> mapJson = new HashMap<>();
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		if(user==null) {
+			mapJson.put("result", "logout");
+		} else {
+			//로그인된 회원번호 셋팅
+			fav.setMem_num(user.getMem_num());
+			
+			BoardFavVO boardFav = boardService.selectFav(fav);
+			
+			if(boardFav != null) {
+				//등록이 되어 있으면 삭제
+				boardService.deleteFav(fav);
+				mapJson.put("status","noFav");
+			} else {
+				//등록이 되어 있지 않으면 추가
+				boardService.insertFav(fav);
+				mapJson.put("status", "yesFav");
+			}
+			mapJson.put("result", "success");
+			mapJson.put("count", boardService.selectFavCount(fav.getBoard_num()));
 		}
 		return mapJson;
 	}

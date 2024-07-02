@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<script src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/videoAdapter.js"></script>
+<script src="${pageContext.request.contextPath}/js/board.fav.js"></script>
 <!-- 게시판 글 상세 시작 -->
 <div class="page-main">
 	<h2>${board.title}</h2>
@@ -32,6 +35,8 @@
 	</div>
 	<div>
 		<!-- 좋아요 -->
+		<img id="output_fav" data-num="${board.board_num}" src="${pageContext.request.contextPath}/images/fav01.gif">
+		<span id="output_fcount"></span>
 		<!-- 댓글수 -->
 	</div>
 	<hr>
@@ -41,7 +46,7 @@
 			<input type="button" value="삭제" id="delete_btn">
 			<script>
 				const delete_btn = document.getElementById('delete_btn');
-				delte_btn.onclick = function(){
+				delete_btn.onclick = function(){
 					const choice = confirm('삭제하시겠습니까?');
 					if(choice) {
 						location.replace('delete?board_num=${board.board_num}');

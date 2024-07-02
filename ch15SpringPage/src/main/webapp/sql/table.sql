@@ -41,3 +41,12 @@ create table spboard(
 	constraint spboard_fk foreign key (mem_num) references spmember (mem_num)
 );
 create sequence spboard_seq;
+
+
+--게시판 좋아요
+create table spboard_fav(
+	board_num number not null,
+	mem_num number not null,
+	constraint fav_spboard_fk1 foreign key (board_num) references spboard (board_num),
+	constraint fav_spboard_fk2 foreign key (mem_num) references member (mem_num)
+)
