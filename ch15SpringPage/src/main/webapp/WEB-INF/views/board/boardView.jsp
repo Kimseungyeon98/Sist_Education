@@ -58,8 +58,32 @@
 	</div>
 	<hr>
 	<!-- 댓글 UI 시작 -->
-	<div>
+	<div id="reply_div">
+		<span class="re-title">댓글 달기</span>
+		<form id="re_form">
+			<input type="hidden" name="board_num" value="${board.board_num}" id="board_num">
+			<textarea rows="3" cols="50" name="re_content" id="re_content" class="rep-content"
+			<c:if test="${empty user}">disabled="disabled"</c:if>
+			><c:if test="${empty user}">로그인해야 작성할 수 있습니다.</c:if></textarea>
+			<c:if test="${!empty user}">
+				<div id="re_first">
+					<span class="letter-count">300/300</span>
+				</div>
+				<div id="re_second" class="align-right">
+					<input type="submit" value="전송">
+				</div>
+			</c:if>
+		</form>
+	</div>
+	<!-- 댓글 목록 출력 -->
+	<div id="output">
 		
+	</div>
+	<div id="loading" style="display:none;">
+		<img src="${pageContext.request.contextPath}/images/loading.gif" width="30" height="30">
+	</div>
+	<div class="paging-button" style="display:none;">
+		<input type="button" value="더보기">
 	</div>
 	<!-- 댓글 목록 출력 -->
 	<!-- 댓글 UI 끝 -->

@@ -224,8 +224,6 @@ public class BoardController {
 		if(db_board.getFilename()!=null) {
 			//파일 삭제
 			FileUtil.removeFile(request, db_board.getFilename());
-			
-			
 		}
 		
 		return "redirect:/board/list";
