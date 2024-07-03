@@ -5,6 +5,7 @@
 <script src="${pageContext.request.contextPath}/js/jquery-3.7.1.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/videoAdapter.js"></script>
 <script src="${pageContext.request.contextPath}/js/board.fav.js"></script>
+<script src="${pageContext.request.contextPath}/js/board.reply.js"></script>
 <!-- 게시판 글 상세 시작 -->
 <div class="page-main">
 	<h2>${board.title}</h2>

@@ -48,7 +48,7 @@ create table spboard_fav(
 	board_num number not null,
 	mem_num number not null,
 	constraint fav_spboard_fk1 foreign key (board_num) references spboard (board_num),
-	constraint fav_spboard_fk2 foreign key (mem_num) references member (mem_num)
+	constraint fav_spboard_fk2 foreign key (mem_num) references spmember (mem_num)
 )
 
 

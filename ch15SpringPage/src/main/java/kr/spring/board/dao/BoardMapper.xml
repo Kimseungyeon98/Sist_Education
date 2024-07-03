@@ -191,7 +191,7 @@
 		]]>
 	</select>
 	<!-- 게시판 갯수 가져오기 -->
-	<select id="selectRowCountReply" parameterType="long">
+	<select id="selectRowCountReply" parameterType="map" resultType="integer">
 		SELECT COUNT(*) 
 		FROM spboard_reply 
 		WHERE board_num=#{board_num}
