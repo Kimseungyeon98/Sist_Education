@@ -81,8 +81,15 @@
 		FROM (
 			  SELECT a.*, rownum rnum 
 			  FROM (
-			  		SELECT * 
-			  		FROM spboard JOIN spmember USING (mem_num)
+			  		SELECT
+			  		<![CDATA[
+			  			REPLACE(REPLACE(title,'<','&lt;'),'>','&gt;') title,
+			  		]]>
+			  		board_num,hit, filename, reg_date, mem_num, id, nick_name, re_cnt, fav_cnt
+			  		FROM spboard
+			  		JOIN spmember USING(mem_num)
+			  		LEFT OUTER JOIN(SELECT COUNT(*) re_cnt, board_num FROM spboard_reply GROUP BY board_num) USING (board_num)
+			  		LEFT OUTER JOIN(SELECT COUNT(*) fav_cnt, board_num FROM spboard_fav GROUP BY board_num) USING (board_num)
 		<include refid="boardSearch"/>
 		<include refid="boardOrder"/>
 		)a)
@@ -190,11 +197,36 @@
 		WHERE rnum >= #{start} AND rnum <= #{end}
 		]]>
 	</select>
-	<!-- 게시판 갯수 가져오기 -->
+	<!-- 게시판 댓글 갯수 가져오기 -->
 	<select id="selectRowCountReply" parameterType="map" resultType="integer">
 		SELECT COUNT(*) 
 		FROM spboard_reply 
 		WHERE board_num=#{board_num}
 	</select>
+	<!-- 댓글 수정,삭제시 작성자 회원번호를 구하기 위해 사용 -->
+	<select id="selectReply" parameterType="long" resultType="boardReplyVO">
+		SELECT * 
+		FROM spboard_reply 
+		WHERE re_num=#{re_num}
+	</select>
+	<!-- 댓글 수정 -->
+	<update id="updateReply" parameterType="boardReplyVO">
+		UPDATE spboard_reply SET re_content = #{re_content}, 
+								 re_ip = #{re_ip}, 
+								 re_mdate = SYSDATE 
+	    WHERE re_num = #{re_num}
+	</update>
 	
+	
+	<delete id="deleteReply" parameterType="long">
+		DELETE FROM spboard_reply WHERE re_num=#{re_num}
+	</delete>
+	<!-- 부모글 삭제시 댓글이 존재하면 부모글 삭제전 댓글 삭제 -->
+	<delete id="deleteReplyByBoardNum" parameterType="long">
+		DELETE FROM spboard_reply WHERE board_num=#{board_num}
+	</delete>
+	<!-- 부모글 삭제시 댓글의 답글이 존재하면 댓글 번호를 구해서 답글 삭제시 사용 -->
+	<delete id="selectReNumsByBoard_num" parameterType="long">
+		select * from spboard_reply WHERE board_num=#{board_num}
+	</delete>
 </mapper>

@@ -66,7 +66,7 @@
 			<c:forEach items="${list}" var="board">
 				<tr>
 					<td class="align-center">${board.board_num}</td>
-					<td class="align-left"><a href="detail?board_num=${board.board_num}">${board.title})(${board.re_cnt})</a></td>
+					<td class="align-left"><a href="detail?board_num=${board.board_num}">${board.title}(${board.re_cnt})</a></td>
 					<td class="align-center">
 						<c:if test="${empty board.nick_name}">${board.id}</c:if>
 						<c:if test="${!empty board.nick_name}">${board.nick_name}</c:if>

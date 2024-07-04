@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.spring.board.vo.BoardFavVO;
+import kr.spring.board.vo.BoardReFavVO;
 import kr.spring.board.vo.BoardReplyVO;
 import kr.spring.board.vo.BoardVO;
 
@@ -40,6 +41,12 @@ public interface BoardService {
 	
 	
 	//댓글 좋아요
+	public BoardReFavVO selectReFav(BoardReFavVO fav);
+	public Integer selectReFavCount(Long re_num);
+	public void insertReFav(BoardReFavVO fav);
+	public void deleteReFav(BoardReFavVO fav);
+	public void deleteReFavByReNum(Long re_num);
+	public void deleteReFavByBoardNum(Long board_num);
 	
 	//답글
 }

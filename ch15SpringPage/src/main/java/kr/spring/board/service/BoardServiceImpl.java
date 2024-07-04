@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.spring.board.dao.BoardMapper;
 import kr.spring.board.vo.BoardFavVO;
+import kr.spring.board.vo.BoardReFavVO;
 import kr.spring.board.vo.BoardReplyVO;
 import kr.spring.board.vo.BoardVO;
 
@@ -53,11 +54,11 @@ public class BoardServiceImpl implements BoardService{
 	public void deleteBoard(Long board_num) {
 		
 		//답글 삭제
-		
+		boardMapper.deleteReFavByBoardNum(board_num);
 		//댓글 좋아요 삭제
-		
+		boardMapper.deleteFavByBoardNum(board_num);
 		//댓글 삭제
-		
+		boardMapper.deleteReplyByBoardNum(board_num);
 		//부모글 좋아요 삭제
 		boardMapper.deleteFavByBoardNum(board_num);
 		//부모글 삭제
@@ -101,39 +102,71 @@ public class BoardServiceImpl implements BoardService{
 
 	@Override
 	public BoardReplyVO selectReply(Long re_num) {
-		// TODO Auto-generated method stub
-		return null;
+		return boardMapper.selectReply(re_num);
 	}
 
 	@Override
 	public void insertReply(BoardReplyVO boardReply) {
 		boardMapper.insertReply(boardReply);
-		
 	}
 
 	@Override
 	public void updateReply(BoardReplyVO boardReply) {
-		// TODO Auto-generated method stub
-		
+		boardMapper.updateReply(boardReply);
 	}
 
 	@Override
 	public void deleteReply(Long re_num) {
-		// TODO Auto-generated method stub
+		//답글
 		
+		
+		//댓글 좋아요
+		boardMapper.deleteReFavByReNum(re_num);
+		boardMapper.deleteReply(re_num);
 	}
 
 	@Override
 	public void deleteReplyByBoardNum(Long board_num) {
+		boardMapper.deleteReplyByBoardNum(board_num);
+	}
+
+	@Override
+	public List<Long> selectReNumsByBoard_num(Long board_num) {
+		return boardMapper.selectReNumsByBoard_num(board_num);
+	}
+
+	@Override
+	public BoardReFavVO selectReFav(BoardReFavVO fav) {
+		return boardMapper.selectReFav(fav);
+	}
+
+	@Override
+	public Integer selectReFavCount(Long re_num) {
+		return boardMapper.selectReFavCount(re_num);
+	}
+
+	@Override
+	public void insertReFav(BoardReFavVO fav) {
+		boardMapper.insertReFav(fav);
+	}
+
+	@Override
+	public void deleteReFav(BoardReFavVO fav) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public List<Long> selectReNumsByBoard_num(Long board_num) {
+	public void deleteReFavByReNum(Long re_num) {
 		// TODO Auto-generated method stub
-		return null;
-	}	
+		
+	}
+
+	@Override
+	public void deleteReFavByBoardNum(Long board_num) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 }

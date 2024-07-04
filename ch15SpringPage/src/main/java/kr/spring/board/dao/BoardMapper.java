@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import kr.spring.board.vo.BoardFavVO;
+import kr.spring.board.vo.BoardReFavVO;
 import kr.spring.board.vo.BoardReplyVO;
 import kr.spring.board.vo.BoardVO;
 
@@ -32,8 +33,8 @@ public interface BoardMapper {
 	
 	
 	//댓글
+
 	public List<BoardReplyVO> selectListReply(Map<String, Object> map);
-	//XML
 	public Integer selectRowCountReply(Map<String, Object> map);
 	public BoardReplyVO selectReply(Long re_num);
 	public void insertReply(BoardReplyVO boardReply);
@@ -45,6 +46,14 @@ public interface BoardMapper {
 	public List<Long> selectReNumsByBoard_num(Long board_num);
 	
 	//댓글 좋아요
+	@Select("SELECT * FROM spreply_fav WHERE re_num=#{re_num} and mem_num = #{mem_num}")
+	public BoardReFavVO selectReFav(BoardReFavVO fav);
+	@Select("SELECT COUNT(*) FROM spreply_fav WHERE re_num=#{re_num}")
+	public Integer selectReFavCount(Long re_num);
+	public void insertReFav(BoardReFavVO fav);
+	public void deleteReFav(BoardReFavVO fav);
+	public void deleteReFavByReNum(Long re_num);
+	public void deleteReFavByBoardNum(Long board_num);
 	
 	//답글
 }
