@@ -24,15 +24,21 @@ form#board_register input[type="text"],
 }
 /* 게시판 글상세
 ---------------------*/
+ul.detail-info{
+	list-style:none;
+	margin:0;
+	padding:0;
+}
 ul.detail-info li{
+	margin:0;
+	padding-top:5px;
 	display:inline-block;
+}
+ul.detail-info li:last-child{
+	vertical-align:top;
 }
 .detail-img{
 	max-width:500px;
-}
-ul.detail-sub{
-	margin:0;
-	padding:0;
 }
 ul.detail-sub li{
 	display:inline-block;
@@ -119,7 +125,7 @@ div.paging-button{
 div#output{
 	clear:both;
 }
-form#mre_form{
+form#mre_form, form#mresp_form{
 	border:none;
 	margin:5px;
 }

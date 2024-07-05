@@ -53,6 +53,11 @@ $(function(){
 					output += '<p>'+item.re_content.replace(/\r\n/g,'<br>')+'</p>';
 					//좋아요 시작
 					
+					if(item.click_num=0 || param.user_num!=item.click_num){
+						output += '<img class="output_rfav" src="../images/heart01.png" data-num="'+item.re_num+'"><sapn>'+fav_cnt+'</span>';
+					}
+					
+					
 					//좋아요 끝
 					if(param.user_num==item.mem_num){
 						//로그인한 회원번호와 댓글 작성자 회원번호가 일치
