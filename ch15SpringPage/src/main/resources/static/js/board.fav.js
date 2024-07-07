@@ -36,7 +36,9 @@ $(function(){
 		$('#output_fcount').text(param.count);
 	}
 	
-	//좋아요 등록/삭제
+	/*--------------------
+	 *	좋아요 등록/삭제
+	 *--------------------*/
 	$('#output_fav').click(function(){
 		//서버와 통신
 		$.ajax({

@@ -312,8 +312,45 @@ $(function(){
 	===================*/
 	
 	/*===================
+		댓글 좋아요 등록/삭제
+	===================*/
+	$(document).on('click','.output_rfav',function(){
+		let heart = $(this);
+		//서버와 통신
+		$.ajax({
+			url:'writeReFav',
+			type:'post',
+			data:{re_num:heart.attr('data-num')},
+			dataType:'json',
+			success:function(param){
+				if(param.result == 'logout'){
+					alert('로그인 후 좋아요를 눌러주세요.');
+				}else if(param.result == 'success'){
+					displayFav(param,heart);
+				}else{
+					alert('댓글 좋아요 등록/삭제 오류 발생');
+				}
+			},
+			error:function(){
+				alert('네트워크 오류 발생');
+			}
+		});
+	});
+	
+	/*===================
 		댓글 좋아요 표시
 	===================*/
+	function displayFav(param,heart){
+		let output;
+		if(param.status == 'noFav'){
+			output = '../images/heart01.png';
+		}else{
+			output = '../images/heart02.png';
+		}
+		//문서 객체에 추가
+		heart.attr('src',output);
+		heart.parent().find('.output_rfcount').text(param.count);
+	};
 	
 	/*===================
 		답글 등록

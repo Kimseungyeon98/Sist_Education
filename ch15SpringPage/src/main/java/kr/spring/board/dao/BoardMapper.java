@@ -3,6 +3,8 @@ package kr.spring.board.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -46,13 +48,17 @@ public interface BoardMapper {
 	public List<Long> selectReNumsByBoard_num(Long board_num);
 	
 	//댓글 좋아요
-	@Select("SELECT * FROM spreply_fav WHERE re_num=#{re_num} and mem_num = #{mem_num}")
+	@Select("SELECT * FROM spreply_fav WHERE re_num=#{re_num} AND mem_num=#{mem_num}")
 	public BoardReFavVO selectReFav(BoardReFavVO fav);
 	@Select("SELECT COUNT(*) FROM spreply_fav WHERE re_num=#{re_num}")
 	public Integer selectReFavCount(Long re_num);
+	@Insert("INSERT INTO spreply_fav (re_num,mem_num) VALUES(#{re_num},#{mem_num})")
 	public void insertReFav(BoardReFavVO fav);
+	@Delete("DELETE FROM spreply_fav WHERE re_num=#{re_num} AND mem_num=#{mem_num}")
 	public void deleteReFav(BoardReFavVO fav);
+	@Delete("DELETE FROM spreply_fav WHERE re_num=#{re_num}")
 	public void deleteReFavByReNum(Long re_num);
+	@Delete("DELETE FROM spreply_fav WHERE re_num IN (SELECT re_num FROM spboard_reply WHERE board_num=#{board_num}")
 	public void deleteReFavByBoardNum(Long board_num);
 	
 	//답글
