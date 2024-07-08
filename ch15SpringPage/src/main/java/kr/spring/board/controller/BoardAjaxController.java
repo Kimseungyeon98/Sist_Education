@@ -295,34 +295,7 @@ public class BoardAjaxController {
 		
 		return mapJson;
 	}
-<<<<<<< HEAD
-	
-	/*===================
-		댓글 좋아요 등록
-	===================*/
-	@PostMapping("/board/writeReFav")
-	@ResponseBody
-	public Map<String,Object> writeReFav(BoardReFavVO fav, HttpSession session){
-		log.debug("<<댓글 좋아요 등록/삭제>> : " + fav);
-		
-		Map<String, Object> mapJson = new HashMap<String, Object>();
-		MemberVO user = (MemberVO)session.getAttribute("user");
-		if(user == null) {
-			mapJson.put("result", "logout");
-		}else {
-			fav.setMem_num(user.getMem_num());
-			BoardReFavVO boardReFav = boardService.selectReFav(fav);
-			if(boardReFav != null) {
-				boardService.deleteReFav(fav);
-				mapJson.put("status", "noFav");
-			}else {
-				boardService.insertReFav(fav);
-				mapJson.put("status", "yesFav");
-			}
-			mapJson.put("result", "success");
-			mapJson.put("count", boardService.selectReFavCount(fav.getRe_num()));
-		}
-=======
+
 	/*===================
 		댓글 좋아요 등록
 	===================*/
@@ -375,8 +348,6 @@ public class BoardAjaxController {
 			boardService.insertResponse(boardResponseVO);
 			mapJson.put("result", "success");
 		}
-		
->>>>>>> branch 'main' of https://github.com/Kimseungyeon98/SpringPage.git
 		return mapJson;
 	}
 }

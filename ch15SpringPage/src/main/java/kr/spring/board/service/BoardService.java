@@ -35,10 +35,7 @@ public interface BoardService {
 	public void insertReply(BoardReplyVO boardReply);
 	public void updateReply(BoardReplyVO boardReply);
 	public void deleteReply(Long re_num);
-<<<<<<< HEAD
-=======
 	public void deleteReplyByBoardNum(Long board_num);
->>>>>>> branch 'main' of https://github.com/Kimseungyeon98/SpringPage.git
 	
 	
 	//댓글 좋아요
