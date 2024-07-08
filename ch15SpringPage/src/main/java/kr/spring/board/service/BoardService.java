@@ -6,6 +6,7 @@ import java.util.Map;
 import kr.spring.board.vo.BoardFavVO;
 import kr.spring.board.vo.BoardReFavVO;
 import kr.spring.board.vo.BoardReplyVO;
+import kr.spring.board.vo.BoardResponseVO;
 import kr.spring.board.vo.BoardVO;
 
 public interface BoardService {
@@ -34,10 +35,7 @@ public interface BoardService {
 	public void insertReply(BoardReplyVO boardReply);
 	public void updateReply(BoardReplyVO boardReply);
 	public void deleteReply(Long re_num);
-	//-부모글 삭제시 댓글이 존재하면 부모글 삭제전 댓글 삭제
 	public void deleteReplyByBoardNum(Long board_num);
-	//-부모글 삭제시 댓글의 답글이 존재하면 댓글 번호를 구해서 답글 삭제시 사용
-	public List<Long> selectReNumsByBoard_num(Long board_num);
 	
 	
 	//댓글 좋아요
@@ -45,8 +43,11 @@ public interface BoardService {
 	public Integer selectReFavCount(Long re_num);
 	public void insertReFav(BoardReFavVO fav);
 	public void deleteReFav(BoardReFavVO fav);
-	public void deleteReFavByReNum(Long re_num);
-	public void deleteReFavByBoardNum(Long board_num);
 	
 	//답글
+	public List<BoardResponseVO> selectListResponse(Long re_num);
+	public BoardResponseVO selectResponse(Long te_num);
+	public void insertResponse(BoardResponseVO boardResponse);
+	public void updateResponse(BoardResponseVO boardResponse);
+	public void deleteResponse(Long te_num);
 }
