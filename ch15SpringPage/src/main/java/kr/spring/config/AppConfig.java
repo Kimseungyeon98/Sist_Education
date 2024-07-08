@@ -33,6 +33,7 @@ public class AppConfig implements WebMvcConfigurer{
 	public void addInterceptors(InterceptorRegistry registry) {
 		//LoginCheckInterceptor 설정
 		registry.addInterceptor(loginCheck)
+<<<<<<< HEAD
 		        .addPathPatterns("/member/myPage")
 		        .addPathPatterns("/member/update")
 		        .addPathPatterns("/member/changePassword")
@@ -40,6 +41,16 @@ public class AppConfig implements WebMvcConfigurer{
 		        .addPathPatterns("/board/write")
 		        .addPathPatterns("/board/update")
 		        .addPathPatterns("/board/delete");
+=======
+				.addPathPatterns("/member/myPage")
+		        .addPathPatterns("/member/update")
+		        .addPathPatterns("/member/changePassword")
+		        .addPathPatterns("/member/delete")
+		        .addPathPatterns("/board/write")
+		        .addPathPatterns("/board/update")
+		        .addPathPatterns("/board/delete");
+		
+>>>>>>> branch 'main' of https://github.com/Kimseungyeon98/SpringPage.git
 		//WriterCheckInterceptor 설정
 		registry.addInterceptor(writerChecker)
 				.addPathPatterns("/board/update")

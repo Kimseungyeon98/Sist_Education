@@ -11,6 +11,7 @@ import kr.spring.board.dao.BoardMapper;
 import kr.spring.board.vo.BoardFavVO;
 import kr.spring.board.vo.BoardReFavVO;
 import kr.spring.board.vo.BoardReplyVO;
+import kr.spring.board.vo.BoardResponseVO;
 import kr.spring.board.vo.BoardVO;
 
 @Service
@@ -52,6 +53,10 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public void deleteBoard(Long board_num) {
 		//답글 삭제
+<<<<<<< HEAD
+=======
+		boardMapper.deleteResponseByBoardNum(board_num);
+>>>>>>> branch 'main' of https://github.com/Kimseungyeon98/SpringPage.git
 		//댓글 좋아요 삭제
 		boardMapper.deleteReFavByBoardNum(board_num);
 		//댓글 삭제
@@ -60,6 +65,11 @@ public class BoardServiceImpl implements BoardService{
 		boardMapper.deleteFavByBoardNum(board_num);
 		//부모글 삭제
 		boardMapper.deleteBoard(board_num);
+	}
+
+	@Override
+	public void deleteReplyByBoardNum(Long board_num) {
+		boardMapper.deleteReplyByBoardNum(board_num);
 	}
 
 	@Override
@@ -115,7 +125,11 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public void deleteReply(Long re_num) {
 		//답글 
+<<<<<<< HEAD
 		
+=======
+		boardMapper.deleteResponseByReNum(re_num);
+>>>>>>> branch 'main' of https://github.com/Kimseungyeon98/SpringPage.git
 		//댓글 좋아요
 		boardMapper.deleteReFavByReNum(re_num);
 		boardMapper.deleteReply(re_num);
@@ -139,5 +153,38 @@ public class BoardServiceImpl implements BoardService{
 	@Override
 	public void deleteReFav(BoardReFavVO fav) {
 		boardMapper.deleteReFav(fav);
+<<<<<<< HEAD
+=======
 	}
+	
+	@Override
+	public List<BoardResponseVO> selectListResponse(Long re_num) {
+		return boardMapper.selectListResponse(re_num);
+	}
+
+	@Override
+	public BoardResponseVO selectResponse(Long te_num) {
+		return boardMapper.selectResponse(te_num);
+	}
+
+	@Override
+	public void insertResponse(BoardResponseVO boardResponse) {
+		boardMapper.insertResponse(boardResponse);
+		
+>>>>>>> branch 'main' of https://github.com/Kimseungyeon98/SpringPage.git
+	}
+<<<<<<< HEAD
+=======
+
+	@Override
+	public void updateResponse(BoardResponseVO boardResponse) {
+		boardMapper.updateResponse(boardResponse);
+		
+	}
+
+	@Override
+	public void deleteResponse(Long te_num) {
+		boardMapper.deleteResponse(te_num);
+	}
+>>>>>>> branch 'main' of https://github.com/Kimseungyeon98/SpringPage.git
 }

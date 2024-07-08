@@ -87,9 +87,9 @@
 			  		]]>
 			  		board_num,hit, filename, reg_date, mem_num, id, nick_name, re_cnt, fav_cnt
 			  		FROM spboard
-			  		JOIN spmember USING(mem_num)
 			  		LEFT OUTER JOIN(SELECT COUNT(*) re_cnt, board_num FROM spboard_reply GROUP BY board_num) USING (board_num)
 			  		LEFT OUTER JOIN(SELECT COUNT(*) fav_cnt, board_num FROM spboard_fav GROUP BY board_num) USING (board_num)
+					JOIN spmember USING(mem_num)
 		<include refid="boardSearch"/>
 		<include refid="boardOrder"/>
 		)a)
@@ -187,6 +187,7 @@
 	</insert>
 	<!-- 댓글 목록 -->
 	<select id="selectListReply" parameterType="map" resultType="boardReplyVO">
+<<<<<<< HEAD
 		SELECT * FROM 
 			(SELECT a.*, rownum rnum FROM 
 				(SELECT * FROM spboard_reply 
@@ -197,6 +198,23 @@
 				LEFT OUTER JOIN (SELECT re_num,COUNT(*) refav_cnt FROM spreply_fav GROUP BY re_num) USING(re_num)
 				WHERE board_num=#{board_num}
 				ORDER BY re_num DESC)a)
+=======
+		SELECT * FROM (SELECT a.*, rownum rnum 
+						FROM (SELECT * 
+								FROM spboard_reply JOIN spmember USING(mem_num) 
+											       /* 로그인 한 상태에서 클릭한 사람의 정보 읽기, 로그인하지 않으면 0 전달 */
+											       LEFT OUTER JOIN (SELECT re_num,mem_num click_num 
+											       					FROM spreply_fav 
+											       					WHERE mem_num = #{mem_num}) USING(re_num) 
+											       LEFT OUTER JOIN (SELECT re_num,COUNT(*) refav_cnt 
+											       					FROM spreply_fav 
+											       					GROUP BY re_num) USING (re_num)
+											       LEFT OUTER JOIN (SELECT re_num, COUNT(*) resp_cnt 
+											       					FROM spboard_response 
+											       					GROUP BY re_num) USING (re_num)
+											       WHERE board_num=#{board_num}
+											       ORDER BY re_num DESC)a)
+>>>>>>> branch 'main' of https://github.com/Kimseungyeon98/SpringPage.git
 		<![CDATA[
 		WHERE rnum >= #{start} AND rnum <= #{end}
 		]]>
@@ -227,10 +245,33 @@
 	</delete>
 	<!-- 부모글 삭제시 댓글이 존재하면 부모글 삭제전 댓글 삭제 -->
 	<delete id="deleteReplyByBoardNum" parameterType="long">
-		DELETE FROM spboard_reply WHERE board_num=#{board_num}
+		DELETE FROM spboard_response 
+			   WHERE re_num IN (SELECT re_num FROM spboard_reply
+			   								  where board_num = #{board_num})
 	</delete>
 	<!-- 부모글 삭제시 댓글의 답글이 존재하면 댓글 번호를 구해서 답글 삭제시 사용 -->
 	<delete id="selectReNumsByBoard_num" parameterType="long">
 		select * from spboard_reply WHERE board_num=#{board_num}
 	</delete>
+	
+	<!-- 답글 등록 -->
+	<insert id="insertResponse" parameterType="boardResponseVO">
+		INSERT INTO spboard_response(
+										te_num,
+										te_content,
+										te_parent_num,
+										te_depth,
+										te_ip,
+										re_num,
+										mem_num
+									) VALUES (
+										response_seq.nextval,
+										#{te_content},
+										#{te_parent_num},
+										#{te_depth},
+										#{te_ip},
+										#{re_num},
+										#{mem_num}
+									)
+	</insert>
 </mapper>

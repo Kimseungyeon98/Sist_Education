@@ -53,6 +53,11 @@ $(function(){
 					output += '<p>'+item.re_content.replace(/\r\n/g,'<br>')+'</p>';
 					//좋아요 시작
 					
+					if(item.click_num=0 || param.user_num!=item.click_num){
+						output += '<img class="output_fav" src="../images/heart01.png" data-num="'+item.re_num+'"><sapn>'+item.refav_cnt+'</span>';
+					}
+					
+					
 					//좋아요 끝
 					if(param.user_num==item.mem_num){
 						//로그인한 회원번호와 댓글 작성자 회원번호가 일치
@@ -60,7 +65,14 @@ $(function(){
 						output += ' <input type="button" data-num="'+item.re_num+'" value="삭제" class="delete-btn">';
 					}
 					//답글 시작
-					
+					if(param.user_num){
+						output += ' <input type="button" data-num="'+item.re_num+'" data-parent="0" data-depth="0" value="답글 작성" class="response-btn">'	
+					}
+					if(item.resp_cnt>0){
+						output += '<div><input type="button" data-status="0" data-num="'+item.re_num+'" value="▲ 답글'+item.resp_cnt+'" class="response-btn"></div>'
+					} else{
+						output += '<div><input type="button" data-num="'+item.re_num+'" value="▲ 답글 0" class="response-btn" style="display:none;"></div>'
+					}
 					//답글 끝
 					output += '</div>';
 					output += '</div>';
@@ -355,6 +367,88 @@ $(function(){
 	/*===================
 		답글 등록
 	===================*/
+	//답글 작성 버튼 클릭시 답글 작성 폼 노출
+	$(document).on('click','.response-btn,.response2-btn',function(){
+		//모든 폼 초기화
+		initResponseForm();
+		//클릭하면 모든 답글 작성 버튼을 노출시키고 클릭한 답글 작성 버튼만 숨기기
+		$(this).hide();
+		
+		//댓글 번호
+		let re_num = $(this).attr('data-num');
+		//부모 글 번호
+		let te_parent_num = $(this).attr('data-parent');
+		//깊이
+		let te_depth = $(this).attr('data-depth');
+		console.log(te_parent_num + ',' + te_depth);
+		
+		//답글 작성 폼 UI
+		var responseUI = '<form id="resp_form">';
+		responseUI += '<input type="hidden" name="re_num" id="re_num" value="' + re_num + '">';
+		responseUI += '<input type="hidden" name="te_parent_num" value="' + te_parent_num + '">';
+		responseUI += '<input type="hidden" name="te_depth"value="' + te_depth + '">';
+		responseUI += '<textarea row="3" cols="50" name="te_content" id="resp_content" class="rep-content"></textarea>';
+		responseUI += '<div id="resp_first"><span class="letter-count">300/300</span></div>';
+		responseUI += '<div id="resp_second" class="align-right">';
+		responseUI += ' <input type="submit" value="답글 작성">';
+		responseUI += ' <input type="button" value="취소" class="resp-reset">';
+		responseUI += '</div>';
+		responseUI += '<hr width="96%">';
+		responseUI += '</form>';
+		
+		//답글 작성폼을 답글을 작성하고자하는 데이터가 있는 div에 노출
+		$(this).after(responseUI);
+	});	
+	//답글에서 취소 버튼 클릭시 답글 폼 초기화
+	$(document).on('click','.resp-reset',function(){
+		initResponseForm();
+	});
+	//답글 작성 폼 초기화
+	function initResponseForm(){
+		$('.response-btn,.response2-btn').show();
+		$('#resp_form').remove();
+	}
+	//답글 등록
+	$(document).on('submit','#resp_form',function(event){
+		let resp_form = $(this);
+		
+		if($('#resp_content').val().trim()==''){
+			alert('내용을 입력하세요!');
+			$('#resp_content').val('').focus();
+			return false;
+		}
+		
+		//폼에 입력한 데이터 반환
+		let form_data = $(this).serialize();
+		
+		//댓글 번호
+		let re_num = $(this).find('#resp_num').val();
+		
+		//서버와 통신
+		$.ajax({
+			url:'writeResponse',
+			type:'post',
+			data:form_data,
+			dataType:'json',
+			success:function(param){
+				if(param.result == 'logout'){
+					alert('로그인해야 답글을 작성할 수 있습니다.');
+				} else if(param.result == 'success'){
+					//답글목록호출
+					/*getListResponse(re_num,resp_form.parents('.item'));*/
+					initResponseForm();
+				} else {
+					alert('답글 작성 오류 발생');
+				}
+			},
+			error:function(){
+				alert('네트워크 오류 발생');
+			}
+		})
+		
+		//기본 이벤트 제거
+		event.preventDefault();
+	});
 	
 	/*===================
 		답글 목록
